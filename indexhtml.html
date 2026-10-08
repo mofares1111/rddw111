@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>منصة إنشاء الأسئلة</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Tahoma, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #f1f4f8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 420px;
+            background: white;
+            border-radius: 18px;
+            padding: 35px 30px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.12);
+        }
+
+        .logo {
+            width: 75px;
+            height: 75px;
+            margin: 0 auto 15px;
+            border-radius: 18px;
+            background: #2563eb;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        h1 {
+            text-align: center;
+            color: #222;
+            font-size: 25px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 28px;
+        }
+
+        .input-group {
+            margin-bottom: 17px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            color: #333;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            height: 48px;
+            border: 1px solid #d5d9df;
+            border-radius: 10px;
+            padding: 0 14px;
+            font-size: 15px;
+            outline: none;
+            direction: rtl;
+        }
+
+        input:focus {
+            border-color: #2563eb;
+        }
+
+        .login-btn {
+            width: 100%;
+            height: 50px;
+            border: none;
+            border-radius: 10px;
+            background: #2563eb;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .login-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .register {
+            text-align: center;
+            margin-top: 22px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .register a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .register-form {
+            display: none;
+        }
+
+        .back-login {
+            text-align: center;
+            margin-top: 20px;
+            color: #2563eb;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .message {
+            display: none;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            color: #aaa;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<link rel="stylesheet" href="style.css">
+<body>
+
+    <div class="container">
+
+        <!-- تسجيل الدخول -->
+        <div id="loginForm">
+
+            <div class="logo">س</div>
+
+            <h1>منصة إنشاء الأسئلة</h1>
+
+            <p class="subtitle">
+                أنشئ امتحاناتك وأسئلتك بسهولة
+            </p>
+
+            <div id="loginMessage" class="message"></div>
+
+            <div class="input-group">
+                <label>البريد الإلكتروني</label>
+                <input
+                    type="email"
+                    id="loginEmail"
+                    placeholder="أدخل البريد الإلكتروني"
+                >
+            </div>
+
+            <div class="input-group">
+                <label>كلمة المرور</label>
+                <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="أدخل كلمة المرور"
+                >
+            </div>
+
+            <button class="login-btn" onclick="login()">
+                تسجيل الدخول
+            </button>
+
+            <div class="register">
+                ليس لديك حساب؟
+                <a onclick="showRegister()">إنشاء حساب</a>
+            </div>
+
+        </div>
+
+
+        <!-- إنشاء حساب -->
+        <div id="registerForm" class="register-form">
+
+            <div class="logo">+</div>
+
+            <h1>إنشاء حساب</h1>
+
+            <p class="subtitle">
+                أنشئ حسابك للبدء باستخدام المنصة
+            </p>
+
+            <div id="registerMessage" class="message"></div>
+
+            <div class="input-group">
+                <label>الاسم</label>
+                <input
+                    type="text"
+                    id="registerName"
+                    placeholder="أدخل اسمك"
+                >
+            </div>
+
+            <div class="input-group">
+                <label>البريد الإلكتروني</label>
+                <input
+                    type="email"
+                    id="registerEmail"
+                    placeholder="أدخل البريد الإلكتروني"
+                >
+            </div>
+
+            <div class="input-group">
+                <label>كلمة المرور</label>
+                <input
+                    type="password"
+                    id="registerPassword"
+                    placeholder="أدخل كلمة المرور"
+                >
+            </div>
+
+            <button class="login-btn" onclick="register()">
+                إنشاء الحساب
+            </button>
+
+            <div class="back-login" onclick="showLogin()">
+                ← العودة إلى تسجيل الدخول
+            </div>
+
+        </div>
+
+        <div class="footer">
+            منصة تعليمية لإنشاء وتنظيم الأسئلة
+        </div>
+
+    </div>
+
+
+    <script>
+
+        function showRegister() {
+
+            document.getElementById("loginForm").style.display = "none";
+
+            document.getElementById("registerForm").style.display = "block";
+        }
+
+
+        function showLogin() {
+
+            document.getElementById("registerForm").style.display = "none";
+
+            document.getElementById("loginForm").style.display = "block";
+        }
+
+
+        function login() {
+
+            var email = document.getElementById("loginEmail").value;
+            var password = document.getElementById("loginPassword").value;
+
+            var message = document.getElementById("loginMessage");
+
+            if (email === "" || password === "") {
+
+                message.innerHTML = "يرجى ملء جميع الحقول";
+
+                message.className = "message error";
+
+                message.style.display = "block";
+
+                return;
+            }
+
+            message.innerHTML = "تم إدخال البيانات بنجاح، سيتم ربط تسجيل الدخول بـ Firebase في المرحلة القادمة.";
+
+            message.className = "message success";
+
+            message.style.display = "block";
+        }
+
+
+        function register() {
+
+            var name = document.getElementById("registerName").value;
+
+            var email = document.getElementById("registerEmail").value;
+
+            var password = document.getElementById("registerPassword").value;
+
+            var message = document.getElementById("registerMessage");
+
+
+            if (name === "" || email === "" || password === "") {
+
+                message.innerHTML = "يرجى ملء جميع الحقول";
+
+                message.className = "message error";
+
+                message.style.display = "block";
+
+                return;
+            }
+
+
+            if (password.length < 6) {
+
+                message.innerHTML = "كلمة المرور يجب أن تكون 6 أحرف على الأقل";
+
+                message.className = "message error";
+
+                message.style.display = "block";
+
+                return;
+            }
+
+
+            message.innerHTML = "تم إنشاء البيانات بنجاح، سيتم ربط الحساب بـ Firebase في المرحلة القادمة.";
+
+            message.className = "message success";
+
+            message.style.display = "block";
+        }
+
+    </script>
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDV_ZBiUzFwfixfGGWrv0b5HsJOAxUKgbk",
+      authDomain: "questionwriter-d115b.firebaseapp.com",
+      projectId: "questionwriter-d115b",
+      storageBucket: "questionwriter-d115b.firebasestorage.app",
+      messagingSenderId: "160392577098",
+      appId: "1:160392577098:web:98c65ef9bf81a44cc526b3"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+  </script>
+ <script type="module">
+
+    import {
+        getAuth,
+        createUserWithEmailAndPassword,
+        signInWithEmailAndPassword,
+        updateProfile
+    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+    const auth = getAuth();
+    const db = getFirestore();
+
+    // =========================
+    // إنشاء حساب جديد
+    // =========================
+
+    window.register = async function () {
+
+        const name = document.getElementById("registerName").value.trim();
+        const email = document.getElementById("registerEmail").value.trim();
+        const password = document.getElementById("registerPassword").value;
+
+        const message = document.getElementById("registerMessage");
+
+
+        if (name === "" || email === "" || password === "") {
+
+            message.innerHTML = "يرجى ملء جميع الحقول";
+            message.className = "message error";
+            message.style.display = "block";
+
+            return;
+        }
+
+
+        if (password.length < 6) {
+
+            message.innerHTML = "كلمة المرور يجب أن تكون 6 أحرف على الأقل";
+            message.className = "message error";
+            message.style.display = "block";
+
+            return;
+        }
+
+
+        try {
+
+            const userCredential =
+                await createUserWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
+
+
+            await updateProfile(userCredential.user, {
+                displayName: name
+            });
+            await setDoc(doc(db, "users", userCredential.user.uid), {
+    name: name,
+    email: email,
+    createdAt: new Date().toISOString()
+});
+
+            message.innerHTML = "تم إنشاء الحساب بنجاح ✅";
+            message.className = "message success";
+            message.style.display = "block";
+
+
+        } catch (error) {
+
+            if (error.code === "auth/email-already-in-use") {
+
+                message.innerHTML = "هذا البريد مستخدم مسبقًا";
+
+            } else if (error.code === "auth/invalid-email") {
+
+                message.innerHTML = "البريد الإلكتروني غير صحيح";
+
+            } else if (error.code === "auth/weak-password") {
+
+                message.innerHTML = "كلمة المرور ضعيفة، استخدم 6 أحرف على الأقل";
+
+            } else {
+
+                message.innerHTML = "حدث خطأ أثناء إنشاء الحساب";
+            }
+
+
+            message.className = "message error";
+            message.style.display = "block";
+        }
+    };
+
+
+    // =========================
+    // تسجيل الدخول
+    // =========================
+
+    window.login = async function () {
+
+        const email = document.getElementById("loginEmail").value.trim();
+        const password = document.getElementById("loginPassword").value;
+
+        const message = document.getElementById("loginMessage");
+
+
+        if (email === "" || password === "") {
+
+            message.innerHTML = "يرجى ملء جميع الحقول";
+            message.className = "message error";
+            message.style.display = "block";
+
+            return;
+        }
+
+
+        try {
+
+            await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+
+            message.innerHTML = "تم تسجيل الدخول بنجاح ✅";
+            message.className = "message success";
+            message.style.display = "block";
+
+
+        } catch (error) {
+
+            message.innerHTML =
+                "البريد الإلكتروني أو كلمة المرور غير صحيحة";
+
+            message.className = "message error";
+            message.style.display = "block";
+        }
+    };
+
+</script> 
+</body>
+</html>
